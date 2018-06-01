@@ -2,6 +2,7 @@
 #include <iostream>
 
 int main() {
+
   // deklariere und initialisiere p_1 als nullptr
   int* p_1 = nullptr;
   // erzeuge dynamische Variable und speichere Adresse in p_1
@@ -10,7 +11,8 @@ int main() {
   // deklariere und initialisiere p_2 als nullptr
   int* p_2 = nullptr;
   // erzeuge dynamische Variable und speichere Adresse in p_2
-       p_1 = new int(5);
+       //p_1 = new int(5); reset the value of p_1 
+       p_2 = new int(5);
 
   /* p_1 und p_2 referenzieren nun verschiedene Speicheradressen;
      p_1 zeigt auf eine Integer-Variable mit dem Wert 8,
@@ -43,7 +45,7 @@ int main() {
   p_2 = nullptr;
 
   // gebe Speicher dynamischer Variable referenziert von p_2 frei
-  delete p_1;
+  //delete p_1; couldn't delete the same mamory reference 2 times
   p_1 = nullptr;
   
   std::cout << "Das Programm lief bis zum Ende durch." << std::endl;
