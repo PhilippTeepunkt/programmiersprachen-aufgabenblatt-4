@@ -66,23 +66,36 @@ TEST_CASE("mainModifiers","[List]")
         list5.clear();
         REQUIRE(list5.empty());
     }
+
+/*
+    SECTION("reverse list")
+    {
+        List<int> list6;
+        list6.push_front(1);
+        list6.push_front(2);
+        list6.push_front(3);
+        list6.push_front(4);   
+        list6.reverse();
+        REQUIRE(1==*list6.begin());
+    }
+*/
 }
 
 TEST_CASE ("iterators","[List]")
 {
     SECTION("should be an empty range after default construction")
     {
-        List<int> list6;
-        auto b = list6.begin();
-        auto e = list6.end();
+        List<int> list;
+        auto b = list.begin();
+        auto e = list.end();
         REQUIRE(b==e);
     }
 
     SECTION("provide access to the first element with begin")
     {
-        List<int> list7;
-        list7.push_front(42);
-        REQUIRE(42==*list7.begin());
+        List<int> list2;
+        list2.push_front(42);
+        REQUIRE(42==*list2.begin());
     }
 
 }

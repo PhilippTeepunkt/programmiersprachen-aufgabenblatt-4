@@ -34,13 +34,14 @@ class ListIterator
             node{n}
         {};
 
-        reference operator*()const{
+        pointer operator ->()const{
+            T* result = node->value;
+            return result;
+        }
+        
+        reference operator *()const{
             return node->value;
-        }
-
-        pointer operator->()const{
-            return *node;
-        }
+        }        
 
         Self& operator ++(){
             node = node->next;
@@ -235,9 +236,11 @@ class List
             std::cout<<"List is now empty.";
         }
 
+        /*
+
         void insert(ListIterator<T> pos, T const& object)
         {
-            ListIterator<T>it = this.begin();
+            ListIterator<T>it = begin();
             while(it!=pos)
             {
                 it++;
@@ -249,6 +252,19 @@ class List
             node.next = it; 
         }
 
+        void reverse()
+        {
+            ListIterator<T>it = begin();
+            push_front(*last());
+            while(it!=end())
+            {
+                insert(*(begin().next()));
+                pop_back();
+                it++;
+            }
+        }
+        */
+
     #pragma endregion 
 
     ListIterator<T> begin()const
@@ -259,6 +275,11 @@ class List
     ListIterator<T> end()const
     {
         return ListIterator<T>{last_}.next();
+    }
+
+    ListIterator<T> last()const
+    {
+        return ListIterator<T>{last_};
     }
 
     private:
@@ -293,5 +314,13 @@ template<typename T>
 bool operator !=(List<T> const& xs, List<T> const& ys)
 {
     return !(xs==ys);
+}
+
+template<typename T>
+ListNode<T>& reverse(List<T> const& list)
+{
+    List<T>result{list};
+    result.reverse();
+    return result;
 }
 #endif
