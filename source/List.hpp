@@ -66,6 +66,97 @@ class List
             return size_;
         }
 
+        void push_front(T const data){
+            ListNode<T>* node = new ListNode<T>;
+            (*node).value = data;
+
+            if(!empty())
+            {
+                (*first_).prev = node;
+                (*node).next = first_;
+                last_ = node;
+            }
+            else
+            {
+                
+            }
+            first_ = node;
+            size_++;
+            node = nullptr; 
+        }
+
+        void push_back(T const data){
+            ListNode<T>* node = new ListNode<T>;
+            (*node).value = data;
+
+            if(!empty())
+            {
+                (*last_).next = node;
+                (*node).prev = last_;                
+            }
+            else
+            {   
+                first_= node;   
+            }
+            last_ = node;
+            size_++;
+            node = nullptr;
+        }
+
+        void pop_front(){
+            if(!empty())
+            {
+                ListNode<T>* del = first_;
+                first_=(*first_).next;
+                (*first_).prev = nullptr;
+                delete del;
+                del = nullptr;
+                size_--;
+            }
+            else
+            {
+                std::cout<<"Can't remove first elment, because the list is already empty!";
+            }
+        }
+
+        void pop_back(){
+
+            if(!empty())
+            {
+                ListNode<T>* del = last_; 
+                last_=(*last_).prev;
+                if(last_!=nullptr)
+                {
+                    (*last_).next = nullptr;
+                }
+                delete del;
+                del = nullptr;
+                size_--;
+            }
+            else
+            {
+                std::cout<<"Can't remove last elment, because the list is already empty!";
+            }
+        }
+
+        T front(){
+
+            if(empty())
+            {
+                std::cout<<"List is empty! Can't return first value";
+                return 0;
+            }
+            return (*first_).value;
+        }
+        T back(){
+            if(empty())
+            {
+                std::cout<<"List is empty! Can't return last value";
+                return 0;
+            }
+            return last_->value;
+        }
+
     private:
         std::size_t size_;
         ListNode<T>* first_;
