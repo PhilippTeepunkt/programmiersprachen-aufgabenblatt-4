@@ -18,6 +18,49 @@ template<typename T>
 class ListIterator
 {
     public:
+        using Self = ListIterator<T>;
+
+        using value_type = T;
+        using pointer = T*;
+        using reference = T&;
+        using difference_type = ptrdiff_t;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        ListIterator():
+           node{nullptr} 
+        {};
+
+        ListIterator(ListNode<T>* n):
+            node{n}
+        {};
+
+        reference operator*()const{
+            return *node;
+        }
+        pointer operator->()const{
+            return *node;
+        }
+        Self& operator ++(){
+            node = *node->next;
+            return *this;
+        }
+        Self operator ++(int){
+            Self it{*this};
+            ++(*this);
+            return it;
+        }
+        bool operator ==(Self const& x)const{
+            return node == x.node;
+        }
+        bool operator !=(Self const& x)const{
+            return node != x.node;
+        }
+        Self next()const{
+            if(node)
+                return ListIterator(node->next);
+            else
+                return ListIterator(nullptr);
+        }
 
     private:
         ListNode<T>* node;
@@ -31,6 +74,8 @@ class ListConstIterator
     private:
         ListNode<T>* node;
 };
+
+
 
 template <typename T>
 class List
