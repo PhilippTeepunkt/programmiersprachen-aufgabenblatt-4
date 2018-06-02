@@ -235,6 +235,20 @@ class List
             std::cout<<"List is now empty.";
         }
 
+        void insert(ListIterator<T> pos, T const& object)
+        {
+            ListIterator<T>it = this.begin();
+            while(it!=pos)
+            {
+                it++;
+            }
+            ListNode<T>node{object};
+            it->prev->next = node;
+            node.prev = it->prev;
+            it->prev=node;
+            node.next = it; 
+        }
+
     #pragma endregion 
 
     ListIterator<T> begin()const
