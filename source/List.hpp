@@ -35,26 +35,32 @@ class ListIterator
         {};
 
         reference operator*()const{
-            return *node;
+            return node->value;
         }
+
         pointer operator->()const{
             return *node;
         }
+
         Self& operator ++(){
             node = *node->next;
             return *this;
         }
+
         Self operator ++(int){
-            Self it{*this};
+            Self it(*this);
             ++(*this);
             return it;
         }
+
         bool operator ==(Self const& x)const{
             return node == x.node;
         }
+
         bool operator !=(Self const& x)const{
             return node != x.node;
         }
+
         Self next()const{
             if(node)
                 return ListIterator(node->next);
@@ -225,6 +231,16 @@ class List
         }
 
     #pragma endregion 
+
+    ListIterator<T> begin()
+    {
+        return ListIterator<T>{first_};
+    }
+
+    ListIterator<T> end()
+    {
+        return ListIterator<T>{last_}.next();
+    }
 
     private:
         std::size_t size_;

@@ -57,6 +57,25 @@ TEST_CASE("mainModifiers","[List]")
     }
 }
 
+TEST_CASE ("iterators","[List]")
+{
+    SECTION("should be an empty range after default construction")
+    {
+        List<int> list6;
+        auto b = list6.begin();
+        auto e = list6.end();
+        REQUIRE(b==e);
+    }
+
+    SECTION("provide access to the first element with begin")
+    {
+        List<int> list7;
+        list7.push_front(42);
+        REQUIRE(42==*list7.begin());
+    }
+
+}
+
 int main(int argc, char* argv[])
 {
     return Catch::Session().run(argc,argv);
