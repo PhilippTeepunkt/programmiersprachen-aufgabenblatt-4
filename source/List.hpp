@@ -43,7 +43,7 @@ class ListIterator
         }
 
         Self& operator ++(){
-            node = *node->next;
+            node = node->next;
             return *this;
         }
 
@@ -81,8 +81,6 @@ class ListConstIterator
         ListNode<T>* node;
 };
 
-
-
 template <typename T>
 class List
 {
@@ -107,14 +105,21 @@ class List
             size_{1}
         {};
 
+        List(List<T> const& list):
+            first_{nullptr},
+            last_{nullptr},
+            size_{0}
+        {
+            for(auto it = list.begin();it!=list.end();it++)
+            {
+                push_back(*it);
+            }
+        };
+
         ~List()
         {
             clear();
         }
-
-    #pragma region Setter
-        //not implemented yet
-    #pragma endregion
     
     #pragma region Getter
 
@@ -232,12 +237,12 @@ class List
 
     #pragma endregion 
 
-    ListIterator<T> begin()
+    ListIterator<T> begin()const
     {
         return ListIterator<T>{first_};
     }
 
-    ListIterator<T> end()
+    ListIterator<T> end()const
     {
         return ListIterator<T>{last_}.next();
     }
@@ -247,4 +252,32 @@ class List
         ListNode<T>* first_;
         ListNode<T>* last_;
 };
+
+template<typename T>
+bool operator ==(List<T>const& xs,List<T>const& ys)
+{
+    if(xs.size()!=ys.size())
+    {
+        return false;
+    }
+    
+    ListIterator<T> xIt = xs.begin();
+    ListIterator<T> yIt = ys.begin();
+    while(xIt!=xs.end())
+    {
+        if(*xIt!=*yIt){
+            return false;
+        }
+        xIt++;
+        yIt++;
+    }
+
+    return true;
+}
+
+template<typename T>
+bool operator !=(List<T> const& xs, List<T> const& ys)
+{
+    return !(xs==ys);
+}
 #endif

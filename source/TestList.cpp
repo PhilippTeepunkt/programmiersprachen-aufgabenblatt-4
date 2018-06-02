@@ -5,11 +5,22 @@
 
 #include "List.hpp"
 
-TEST_CASE("constructor and mainGetter","[List]")
+TEST_CASE("constructors and mainGetter","[List]")
 {
     List<int> list;
     REQUIRE(list.empty());
     REQUIRE(list.size()==0);
+
+    SECTION("copy constructor")
+    {
+        List<int> list;
+        list.push_front(1);
+        list.push_front(2);
+        list.push_front(3);
+        list.push_front(4);
+        List<int> list2{list};
+        REQUIRE(list==list2);
+    }
 }
 
 TEST_CASE("mainModifiers","[List]")
