@@ -56,6 +56,17 @@ class List
             size_{1}
         {};
 
+        ~List()
+        {
+            clear();
+        }
+
+    #pragma region Setter
+        //not implemented yet
+    #pragma endregion
+    
+    #pragma region Getter
+
         bool empty()const
         {
             return size_==0;            
@@ -66,6 +77,27 @@ class List
             return size_;
         }
 
+        T front(){
+
+            if(empty())
+            {
+                std::cout<<"List is empty! Can't return first value";
+                return 0;
+            }
+            return (*first_).value;
+        }
+        T back(){
+            if(empty())
+            {
+                std::cout<<"List is empty! Can't return last value";
+                return 0;
+            }
+            return last_->value;
+        }
+
+    #pragma endregion        
+        
+    #pragma region ModifireMethods
         void push_front(T const data){
             ListNode<T>* node = new ListNode<T>;
             (*node).value = data;
@@ -74,11 +106,10 @@ class List
             {
                 (*first_).prev = node;
                 (*node).next = first_;
-                last_ = node;
             }
             else
             {
-                
+                last_ = node;
             }
             first_ = node;
             size_++;
@@ -139,23 +170,16 @@ class List
             }
         }
 
-        T front(){
+        void clear()
+        {
+            while(!empty())
+            {
+                pop_back();
+            }
+            std::cout<<"List is now empty.";
+        }
 
-            if(empty())
-            {
-                std::cout<<"List is empty! Can't return first value";
-                return 0;
-            }
-            return (*first_).value;
-        }
-        T back(){
-            if(empty())
-            {
-                std::cout<<"List is empty! Can't return last value";
-                return 0;
-            }
-            return last_->value;
-        }
+    #pragma endregion 
 
     private:
         std::size_t size_;

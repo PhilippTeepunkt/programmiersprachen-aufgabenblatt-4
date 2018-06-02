@@ -44,6 +44,17 @@ TEST_CASE("mainModifiers","[List]")
         list4.pop_back();
         REQUIRE(list4.empty());
     }
+
+    SECTION("should be empty after cleaning")
+    {
+        List<int> list5;
+        list5.push_front(1);
+        list5.push_front(2);
+        list5.push_front(3);
+        list5.push_front(4);
+        list5.clear();
+        REQUIRE(list5.empty());
+    }
 }
 
 int main(int argc, char* argv[])
