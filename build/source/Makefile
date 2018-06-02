@@ -125,6 +125,48 @@ aufgabe1/fast:
 	cd /home/philipp/Dokumente/Fs2/Programmiersprachen/programmiersprachen-aufgabenblatt-4/build && $(MAKE) -f source/CMakeFiles/aufgabe1.dir/build.make source/CMakeFiles/aufgabe1.dir/build
 .PHONY : aufgabe1/fast
 
+# Convenience name for target.
+source/CMakeFiles/testList.dir/rule:
+	cd /home/philipp/Dokumente/Fs2/Programmiersprachen/programmiersprachen-aufgabenblatt-4/build && $(MAKE) -f CMakeFiles/Makefile2 source/CMakeFiles/testList.dir/rule
+.PHONY : source/CMakeFiles/testList.dir/rule
+
+# Convenience name for target.
+testList: source/CMakeFiles/testList.dir/rule
+
+.PHONY : testList
+
+# fast build rule for target.
+testList/fast:
+	cd /home/philipp/Dokumente/Fs2/Programmiersprachen/programmiersprachen-aufgabenblatt-4/build && $(MAKE) -f source/CMakeFiles/testList.dir/build.make source/CMakeFiles/testList.dir/build
+.PHONY : testList/fast
+
+TestList.o: TestList.cpp.o
+
+.PHONY : TestList.o
+
+# target to build an object file
+TestList.cpp.o:
+	cd /home/philipp/Dokumente/Fs2/Programmiersprachen/programmiersprachen-aufgabenblatt-4/build && $(MAKE) -f source/CMakeFiles/testList.dir/build.make source/CMakeFiles/testList.dir/TestList.cpp.o
+.PHONY : TestList.cpp.o
+
+TestList.i: TestList.cpp.i
+
+.PHONY : TestList.i
+
+# target to preprocess a source file
+TestList.cpp.i:
+	cd /home/philipp/Dokumente/Fs2/Programmiersprachen/programmiersprachen-aufgabenblatt-4/build && $(MAKE) -f source/CMakeFiles/testList.dir/build.make source/CMakeFiles/testList.dir/TestList.cpp.i
+.PHONY : TestList.cpp.i
+
+TestList.s: TestList.cpp.s
+
+.PHONY : TestList.s
+
+# target to generate assembly for a file
+TestList.cpp.s:
+	cd /home/philipp/Dokumente/Fs2/Programmiersprachen/programmiersprachen-aufgabenblatt-4/build && $(MAKE) -f source/CMakeFiles/testList.dir/build.make source/CMakeFiles/testList.dir/TestList.cpp.s
+.PHONY : TestList.cpp.s
+
 aufgabe1.o: aufgabe1.cpp.o
 
 .PHONY : aufgabe1.o
@@ -161,6 +203,10 @@ help:
 	@echo "... edit_cache"
 	@echo "... aufgabe1"
 	@echo "... rebuild_cache"
+	@echo "... testList"
+	@echo "... TestList.o"
+	@echo "... TestList.i"
+	@echo "... TestList.s"
 	@echo "... aufgabe1.o"
 	@echo "... aufgabe1.i"
 	@echo "... aufgabe1.s"
