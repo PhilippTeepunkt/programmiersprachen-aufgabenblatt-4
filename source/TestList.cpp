@@ -9,20 +9,32 @@
 
 TEST_CASE("constructors and mainGetter","[List]")
 {
-    List<int> list;
-    REQUIRE(list.empty());
-    REQUIRE(list.size()==0);
+    SECTION("size and empty")
+    {
+        List<int> list;
+        REQUIRE(list.empty());
+        REQUIRE(list.size()==0);
+    }
 
     SECTION("copy constructor")
     {
-        List<int> list;
-        list.push_front(1);
-        list.push_front(2);
-        list.push_front(3);
-        list.push_front(4);
-        List<int> list2{list};
-        REQUIRE(list==list2);
+        List<int> list2;
+        list2.push_front(1);
+        list2.push_front(2);
+        list2.push_front(3);
+        list2.push_front(4);
+        List<int> list3{list2};
+        REQUIRE(list2==list3);
     }
+
+    SECTION("brace-enclosed")
+    {
+        List<int>list4{9,5,38,1000};
+        REQUIRE(9==*list4.begin());
+        REQUIRE(1000==list4.back());
+    }
+
+
 }
 
 TEST_CASE("mainModifiers","[List]")
@@ -60,7 +72,7 @@ TEST_CASE("mainModifiers","[List]")
 
     SECTION("should be empty after cleaning")
     {
-        List<int> list5;
+        List<int>list5;
         list5.push_front(1);
         list5.push_front(2);
         list5.push_front(3);
@@ -78,8 +90,8 @@ TEST_CASE("mainModifiers","[List]")
         list6.push_front(3);
         list6.push_front(4);   
         list6.reverse();
-        REQUIRE(1==*list6.begin());
-        REQUIRE(4==*list6.last());
+        REQUIRE(1==list6.front());
+        REQUIRE(4==list6.back());
     }
 
     SECTION("return reverse list")
@@ -91,8 +103,16 @@ TEST_CASE("mainModifiers","[List]")
         list7.push_front(4);
         list7.push_front(5);
         List<int>list8 = reverse(list7);
-        REQUIRE(1==*list8.begin());
-        REQUIRE(5==*list8.last());
+        REQUIRE(1==list8.front());
+        REQUIRE(5==list8.back());
+    }
+
+    SECTION("sum")
+    {
+        auto list10 = List<int>{1,2,3,4,5} + List<int>{6,7,8,9};
+        REQUIRE(1==list10.front());
+        REQUIRE(9==list10.back());
+        REQUIRE(9==list10.size());
     }
 }
 
@@ -110,7 +130,7 @@ TEST_CASE ("iterators","[List]")
     {
         List<int> list2;
         list2.push_front(42);
-        REQUIRE(42==*list2.begin());
+        REQUIRE(42==list2.front());
     }
 
 }
@@ -148,8 +168,17 @@ TEST_CASE ("copys","[List]")
         list2.push_back(8);
 
         list2=list1;
-        REQUIRE(1==*list2.begin());
+        REQUIRE(1==list2.front());
         REQUIRE(5==list2.back());
+    }
+
+    SECTION("move constructor")
+    {
+        List<int> list{1,2,3,4};
+        List<int> list2 = std::move(list);
+        REQUIRE(0==list.size());
+        REQUIRE(list.empty());
+        REQUIRE(4==list2.size());
     }
 }
 

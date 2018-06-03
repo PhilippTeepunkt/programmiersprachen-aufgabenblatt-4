@@ -2,6 +2,7 @@
 #define BUW_LIST_HPP
 
 #include<cstddef>
+#include<initializer_list>
 
 template <typename T>
 class List;
@@ -122,6 +123,24 @@ class List
             }
         };
 
+        List(List<T>&& list):
+            first_(list.first_),
+            last_(list.last_),
+            size_(list.size_)
+        {
+            list.first_= nullptr;
+            list.last_ = nullptr;
+            list.size_=0;
+        }
+
+        List(std::initializer_list<T> list)
+        {
+            for(auto it : list)
+            {
+                push_back(it);
+            }
+        };
+
         ~List()
         {
             clear();
@@ -139,7 +158,7 @@ class List
             return size_;
         }
 
-        T front(){
+        T front()const{
 
             if(empty())
             {
@@ -148,7 +167,7 @@ class List
             }
             return (*first_).value;
         }
-        T back(){
+        T back()const{
             if(empty())
             {
                 std::cout<<"List is empty! Can't return last value";
@@ -184,8 +203,8 @@ class List
 
             if(!empty())
             {
-                (*last_).next = node;
-                (*node).prev = last_;                
+                last_->next = node;
+                node->prev = last_;                
             }
             else
             {   
@@ -238,7 +257,6 @@ class List
             {
                 pop_back();
             }
-            std::cout<<"List is now empty.";
         }
 
         void insert(ListIterator<T> pos, T const& object)
@@ -263,11 +281,11 @@ class List
         void reverse()
         {
             ListIterator<T>it = begin();
-            push_front(*last());
+            push_front(back());
             pop_back();
             while(it!=last())
             {
-                insert(it,*last());
+                insert(it,back());
                 pop_back();
             }
         }
@@ -337,5 +355,15 @@ List<T>& reverse(List<T> const& list)
     List<T>*result  = new List<T>{list};
     result->reverse();
     return *result;
+}
+
+template<typename T>
+List<T> operator+(List<T>const& llist,List<T>const& rlist){
+    List<T> concat{llist};
+    for(auto const& it : rlist)
+    {
+        concat.push_back(it);
+    }
+    return concat;
 }
 #endif
