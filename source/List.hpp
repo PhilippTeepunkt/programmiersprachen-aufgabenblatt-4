@@ -69,6 +69,11 @@ class ListIterator
                 return ListIterator(nullptr);
         }
 
+        ListNode<T>& getListNode()
+        {
+            return *node;
+        }
+
     private:
         ListNode<T>* node;
 };
@@ -236,8 +241,6 @@ class List
             std::cout<<"List is now empty.";
         }
 
-        /*
-
         void insert(ListIterator<T> pos, T const& object)
         {
             ListIterator<T>it = begin();
@@ -245,25 +248,29 @@ class List
             {
                 it++;
             }
-            ListNode<T>node{object};
-            it->prev->next = node;
-            node.prev = it->prev;
-            it->prev=node;
-            node.next = it; 
+            ListNode<T>*node = new ListNode<T>;
+            node->value = object;
+            node->prev = it.getListNode().prev;
+            it.getListNode().prev->next = node;
+            it.getListNode().prev = node;
+            if(it!=end())
+            {
+                (*node).next = it.next().getListNode().prev;
+            }
+            size_++;
         }
 
         void reverse()
         {
             ListIterator<T>it = begin();
             push_front(*last());
-            while(it!=end())
+            pop_back();
+            while(it!=last())
             {
-                insert(*(begin().next()));
+                insert(it,*last());
                 pop_back();
-                it++;
             }
         }
-        */
 
     #pragma endregion 
 
@@ -317,10 +324,10 @@ bool operator !=(List<T> const& xs, List<T> const& ys)
 }
 
 template<typename T>
-ListNode<T>& reverse(List<T> const& list)
+List<T>& reverse(List<T> const& list)
 {
-    List<T>result{list};
-    result.reverse();
-    return result;
+    List<T>*result  = new List<T>{list};
+    result->reverse();
+    return *result;
 }
 #endif

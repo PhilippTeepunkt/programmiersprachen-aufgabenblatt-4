@@ -67,7 +67,7 @@ TEST_CASE("mainModifiers","[List]")
         REQUIRE(list5.empty());
     }
 
-/*
+
     SECTION("reverse list")
     {
         List<int> list6;
@@ -77,8 +77,21 @@ TEST_CASE("mainModifiers","[List]")
         list6.push_front(4);   
         list6.reverse();
         REQUIRE(1==*list6.begin());
+        REQUIRE(4==*list6.last());
     }
-*/
+
+    SECTION("return reverse list")
+    {
+        List<int> list7;
+        list7.push_front(1);
+        list7.push_front(2);
+        list7.push_front(3);
+        list7.push_front(4);
+        list7.push_front(5);
+        List<int>list8 = reverse(list7);
+        REQUIRE(1==*list8.begin());
+        REQUIRE(5==*list8.last());
+    }
 }
 
 TEST_CASE ("iterators","[List]")
