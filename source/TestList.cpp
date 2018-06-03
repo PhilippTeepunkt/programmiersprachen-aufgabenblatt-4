@@ -115,21 +115,44 @@ TEST_CASE ("iterators","[List]")
 
 }
 
-TEST_CASE ("copy list to vector")
+TEST_CASE ("copys","[List]")
 {
-    List<int> list1;
-    list1.push_front(1);
-    list1.push_front(2);
-    list1.push_front(3);
-    list1.push_front(4);
-    list1.push_front(5);
+    SECTION("std::copy")
+    {
+        List<int> list1;
+        list1.push_front(1);
+        list1.push_front(2);
+        list1.push_front(3);
+        list1.push_front(4);
+        list1.push_front(5);
 
-    std::vector<int> vec(5);
-    std::copy(list1.begin(),list1.end(),vec.begin());
+        std::vector<int> vec(5);
+        std::copy(list1.begin(),list1.end(),vec.begin());
 
-    REQUIRE(5==*vec.begin());
-    REQUIRE(1==vec.back());
+        REQUIRE(5==*vec.begin());
+        REQUIRE(1==vec.back());
+    }
+
+    SECTION("assignment operator")
+    {
+        List<int> list1;
+        list1.push_back(1);
+        list1.push_back(2);
+        list1.push_back(3);
+        list1.push_back(4);
+        list1.push_back(5);
+
+        List<int> list2;
+        list2.push_back(6);
+        list2.push_back(7);
+        list2.push_back(8);
+
+        list2=list1;
+        REQUIRE(1==*list2.begin());
+        REQUIRE(5==list2.back());
+    }
 }
+
 int main(int argc, char* argv[])
 {
     return Catch::Session().run(argc,argv);

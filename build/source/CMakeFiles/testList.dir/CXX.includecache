@@ -235,6 +235,10 @@ catch.hpp
 /home/philipp/Dokumente/Fs2/Programmiersprachen/programmiersprachen-aufgabenblatt-4/source/catch.hpp
 iostream
 -
+vector
+-
+algorithm
+-
 List.hpp
 /home/philipp/Dokumente/Fs2/Programmiersprachen/programmiersprachen-aufgabenblatt-4/source/List.hpp
 

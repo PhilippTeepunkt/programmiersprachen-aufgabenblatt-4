@@ -289,6 +289,14 @@ class List
         return ListIterator<T>{last_};
     }
 
+    List<T>& operator=(List<T>const& list){
+        clear();
+        for(ListIterator<T> it = list.begin();it!=list.end();it++)
+        {
+            push_back(*it);
+        }
+    }
+
     private:
         std::size_t size_;
         ListNode<T>* first_;
