@@ -2,6 +2,8 @@
 
 #include "catch.hpp"
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 #include "List.hpp"
 
@@ -113,6 +115,21 @@ TEST_CASE ("iterators","[List]")
 
 }
 
+TEST_CASE ("copy list to vector")
+{
+    List<int> list1;
+    list1.push_front(1);
+    list1.push_front(2);
+    list1.push_front(3);
+    list1.push_front(4);
+    list1.push_front(5);
+
+    std::vector<int> vec(5);
+    std::copy(list1.begin(),list1.end(),vec.begin());
+
+    REQUIRE(5==*vec.begin());
+    REQUIRE(1==vec.back());
+}
 int main(int argc, char* argv[])
 {
     return Catch::Session().run(argc,argv);
